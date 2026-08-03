@@ -1,224 +1,341 @@
-.TH MOKUTIL 1 "Thu Jul 25 2013"
+.TH MOKUTIL 1 "August 3, 2026" "0.7.2" "mokutil Manual"
 .SH NAME
 
-mokutil \- utility to manipulate machine owner keys
+mokutil \- utility to manipulate Machine Owner Keys (MOK)
 
 .SH SYNOPSIS
-\fBmokutil\fR [--list-enrolled | -l]
-        ([--mokx | -X])
+\fBmokutil\fR [\fIoptions\fR]
 .br
-\fBmokutil\fR [--list-new | -N]
-        ([--mokx | -X])
+\fBmokutil\fR [\fB--list-enrolled\fR | \fB-l\fR] [\fB--mok\fR | \fB-m\fR | \fB--mokx\fR | \fB-X\fR] [\fB--short\fR] [\fB--all\fR | \fB-a\fR]
 .br
-\fBmokutil\fR [--list-delete | -D]
-        ([--mokx | -X])
+\fBmokutil\fR [\fB--list-new\fR | \fB-N\fR] [\fB--mok\fR | \fB-m\fR | \fB--mokx\fR | \fB-X\fR] [\fB--short\fR]
 .br
-\fBmokutil\fR [--import \fIkeylist\fR| -i \fIkeylist\fR]
-        ([--hash-file \fIhashfile\fR | -f \fIhashfile\fR] | [--root-pw | -P] |
-         [--mokx | -X] | [--ca-check] | [--ignore-keyring])
+\fBmokutil\fR [\fB--list-delete\fR | \fB-D\fR] [\fB--mok\fR | \fB-m\fR | \fB--mokx\fR | \fB-X\fR] [\fB--short\fR]
 .br
-\fBmokutil\fR [--delete \fIkeylist\fR | -d \fIkeylist\fR]
-        ([--hash-file \fIhashfile\fR | -f \fIhashfile\fR] | [--root-pw | -P] |
-         [--mokx | -X])
+\fBmokutil\fR [\fB--import\fR | \fB-i\fR] \fIkeylist\fR
+        ([\fB--mok\fR | \fB-m\fR | \fB--mokx\fR | \fB-X\fR] | [\fB--hash-file\fR | \fB-f\fR \fIhashfile\fR | \fB--root-pw\fR | \fB-P\fR] |
+         [\fB--ca-check\fR] | [\fB--ignore-keyring\fR])
 .br
-\fBmokutil\fR [--revoke-import]
-        ([--mokx | -X])
+\fBmokutil\fR [\fB--delete\fR | \fB-d\fR] \fIkeylist\fR
+        ([\fB--mok\fR | \fB-m\fR | \fB--mokx\fR | \fB-X\fR] | [\fB--hash-file\fR | \fB-f\fR \fIhashfile\fR | \fB--root-pw\fR | \fB-P\fR])
 .br
-\fBmokutil\fR [--revoke-delete]
-        ([--mokx | -X])
+\fBmokutil\fR [\fB--revoke-import\fR] [\fB--mok\fR | \fB-m\fR | \fB--mokx\fR | \fB-X\fR]
 .br
-\fBmokutil\fR [--export | -x]
+\fBmokutil\fR [\fB--revoke-delete\fR] [\fB--mok\fR | \fB-m\fR | \fB--mokx\fR | \fB-X\fR]
 .br
-\fBmokutil\fR [--password | -p]
-        ([--hash-file \fIhashfile\fR | -f \fIhashfile\fR] | [--root-pw | -P])
+\fBmokutil\fR [\fB--export\fR | \fB-x\fR] [\fB--mok\fR | \fB-m\fR | \fB--mokx\fR | \fB-X\fR | \fB--pk\fR | \fB--kek\fR | \fB--db\fR | \fB--dbx\fR]
 .br
-\fBmokutil\fR [--clear-password | -c]
+\fBmokutil\fR [\fB--password\fR | \fB-p\fR] ([\fB--hash-file\fR | \fB-f\fR \fIhashfile\fR] | [\fB--root-pw\fR | \fB-P\fR])
 .br
-\fBmokutil\fR [--disable-validation]
+\fBmokutil\fR [\fB--clear-password\fR | \fB-c\fR]
 .br
-\fBmokutil\fR [--enable-validation]
+\fBmokutil\fR [\fB--disable-validation\fR]
 .br
-\fBmokutil\fR [--sb-state]
+\fBmokutil\fR [\fB--enable-validation\fR]
 .br
-\fBmokutil\fR [--is-sb-enabled]
+\fBmokutil\fR [\fB--sb-state\fR]
 .br
-\fBmokutil\fR [--test-key \fIkeyfile\fR | -t \fIkeyfile\fR]
-        ([--mokx | -X] | [--ca-check] | [--ignore-keyring])
+\fBmokutil\fR [\fB--is-sb-enabled\fR]
 .br
-\fBmokutil\fR [--reset]
-        ([--hash-file \fIhashfile\fR | -f \fIhashfile\fR] | [--root-pw | -P] |
-         [--mok | -X])
+\fBmokutil\fR [\fB--test-key\fR | \fB-t\fR] \fIkeyfile\fR
+        ([\fB--mok\fR | \fB-m\fR | \fB--mokx\fR | \fB-X\fR] | [\fB--ca-check\fR] | [\fB--ignore-keyring\fR])
 .br
-\fBmokutil\fR [--generate-hash=\fIpassword\fR | -g\fIpassword\fR]
+\fBmokutil\fR [\fB--reset\fR]
+        ([\fB--mok\fR | \fB-m\fR | \fB--mokx\fR | \fB-X\fR] | [\fB--hash-file\fR | \fB-f\fR \fIhashfile\fR | \fB--root-pw\fR | \fB-P\fR])
 .br
-\fBmokutil\fR [--ignore-db]
+\fBmokutil\fR [\fB--generate-hash\fR[\fB=\fR\fIpassword\fR] | \fB-g\fR[\fIpassword\fR]]
 .br
-\fBmokutil\fR [--use-db]
+\fBmokutil\fR [\fB--ignore-db\fR]
 .br
-\fBmokutil\fR [--import-hash \fIhash\fR]
-        ([--hash-file \fIhashfile\fR | -f \fIhashfile\fR] | [--root-pw | -P] |
-         [--mokx | -X])
+\fBmokutil\fR [\fB--use-db\fR]
 .br
-\fBmokutil\fR [--delete-hash \fIhash\fR]
-        ([--hash-file \fIhashfile\fR | -f \fIhashfile\fR] | [--root-pw | -P] |
-         [--mokx | -X])
+\fBmokutil\fR [\fB--import-hash\fR \fIhash\fR]
+        ([\fB--mok\fR | \fB-m\fR | \fB--mokx\fR | \fB-X\fR] | [\fB--hash-file\fR | \fB-f\fR \fIhashfile\fR | \fB--root-pw\fR | \fB-P\fR])
 .br
-\fBmokutil\fR [--set-verbosity (\fItrue\fR | \fIfalse\fR)]
+\fBmokutil\fR [\fB--delete-hash\fR \fIhash\fR]
+        ([\fB--mok\fR | \fB-m\fR | \fB--mokx\fR | \fB-X\fR] | [\fB--hash-file\fR | \fB-f\fR \fIhashfile\fR | \fB--root-pw\fR | \fB-P\fR])
 .br
-\fBmokutil\fR [--set-fallback-verbosity (\fItrue\fR | \fIfalse\fR)]
+\fBmokutil\fR [\fB--set-verbosity\fR (\fBtrue\fR | \fBfalse\fR)]
 .br
-\fBmokutil\fR [--set-fallback-noreboot (\fItrue\fR | \fIfalse\fR)]
+\fBmokutil\fR [\fB--set-fallback-verbosity\fR (\fBtrue\fR | \fBfalse\fR)]
 .br
-\fBmokutil\fR [--pk]
+\fBmokutil\fR [\fB--set-fallback-noreboot\fR (\fBtrue\fR | \fBfalse\fR)]
 .br
-\fBmokutil\fR [--kek]
+\fBmokutil\fR [\fB--pk\fR] [\fB--short\fR]
 .br
-\fBmokutil\fR [--db]
+\fBmokutil\fR [\fB--kek\fR] [\fB--short\fR]
 .br
-\fBmokutil\fR [--dbx]
+\fBmokutil\fR [\fB--db\fR] [\fB--short\fR]
 .br
-\fBmokutil\fR [--list-sbat-revocations]
+\fBmokutil\fR [\fB--dbx\fR] [\fB--short\fR]
 .br
-\fBmokutil\fR [--set-sbat-policy (\fIlatest\fR | \fIautomatic\fR | \fIdelete\fR)]
+\fBmokutil\fR [\fB--list-sbat-revocations\fR | \fB--sbat\fR]
 .br
-\fBmokutil\fR [--timeout \fI-1,0..0x7fff\fR]
+\fBmokutil\fR [\fB--set-sbat-policy\fR (\fBlatest\fR | \fBautomatic\fR)]
 .br
-\fBmokutil\fR [--trust-mok]
+\fBmokutil\fR [\fB--set-ssp-policy\fR (\fBlatest\fR | \fBautomatic\fR | \fBdelete\fR)]
 .br
-\fBmokutil\fR [--untrust-mok]
+\fBmokutil\fR [\fB--timeout\fR \fI-1,0..0x7fff\fR]
 .br
+\fBmokutil\fR [\fB--trust-mok\fR]
+.br
+\fBmokutil\fR [\fB--untrust-mok\fR]
+.br
+\fBmokutil\fR [\fB--help\fR | \fB-h\fR]
+.br
+\fBmokutil\fR [\fB--version\fR | \fB-v\fR]
 
 .SH DESCRIPTION
-\fBmokutil\fR is a tool to import or delete the machines owner keys
-(MOK) stored in the database of shim.
+\fBmokutil\fR is a utility to import, delete, and manage Machine Owner Keys
+(MOK) stored in the database of the \fBshim\fR EFI bootloader.
+
+UEFI Secure Boot uses built-in firmware key databases (like \fBdb\fR and \fBdbx\fR)
+to verify the integrity of loaded EFI binaries. Machine Owner Keys (MOK) extend this trust
+chain by allowing system owners to manage their own list of trusted certificates (\fBMokList\fR)
+and forbidden certificates (\fBMokListX\fR) independently of the system's firmware.
+
+When an import or delete request is initiated using \fBmokutil\fR, the tool creates a pending request
+by writing UEFI variables in NVRAM (such as \fBMokNew\fR or \fBMokDel\fR). Upon the subsequent system reboot,
+the \fBshim\fR bootloader detects these variables and launches \fBMokManager\fR. \fBMokManager\fR runs
+within the pre-boot environment, prompting the physical operator to confirm the request and enter the
+configured MOK password, ensuring that key updates are authorized by a local user.
 
 .SH OPTIONS
+
+.SS Primary Commands
 .TP
 \fB-l, --list-enrolled\fR
-List the keys the already stored in the database
+List the certificates currently enrolled in the trusted database (\fBMokListRT\fR).
+If \fB--mokx\fR or \fB-X\fR is specified, list the certificates in the forbidden database (\fBMokListXRT\fR) instead.
+This list contains public keys and hashes used to validate or deny loading of bootloaders or kernels.
 .TP
 \fB-N, --list-new\fR
-List the keys to be enrolled
+List the keys queued in the pending enrollment request database (\fBMokNew\fR, or \fBMokXNew\fR if \fB--mokx\fR is active).
+These keys are waiting for approval by the system owner in \fBMokManager\fR on the next reboot.
 .TP
 \fB-D, --list-delete\fR
-List the keys to be deleted
+List the keys queued in the pending deletion request database (\fBMokDel\fR, or \fBMokXDel\fR if \fB--mokx\fR is active).
+These keys are waiting to be removed by the system owner in \fBMokManager\fR on the next reboot.
 .TP
-\fB-i, --import\fR
-Collect the following files and form an enrolling request to shim. The files must
-be in DER format.
+\fB-i, --import\fR \fIkeylist\fR
+Form an enrollment request to import one or more certificates specified in \fIkeylist\fR.
+The keys must be provided as files in DER format. The action creates a pending \fBMokNew\fR (or \fBMokXNew\fR)
+variable and requires configuring a MOK password for verification on reboot.
 .TP
-\fB-d, --delete\fR
-Collect the following files and form a deleting request to shim. The files must be
-in DER format.
+\fB-d, --delete\fR \fIkeylist\fR
+Form a deletion request to remove one or more certificates specified in \fIkeylist\fR.
+The keys must be provided as files in DER format. This creates a pending \fBMokDel\fR (or \fBMokXDel\fR)
+variable and requires configuring a MOK password for verification on reboot.
+.TP
+\fB--import-hash\fR \fIhash\fR
+Form an enrollment request for \fIhash\fR, given as a hexadecimal string on the command line.
+SHA-224, SHA-256, SHA-384, and SHA-512 digests are recognized by their string length.
+Note that this is the hash of a key or binary, not the password hash.
+.TP
+\fB--delete-hash\fR \fIhash\fR
+Form a deletion request for \fIhash\fR, given as a hexadecimal string on the command line.
+The same digest algorithms as \fB--import-hash\fR are accepted.
 .TP
 \fB--revoke-import\fR
-Revoke the current import request (MokNew)
+Revoke/cancel the current pending import request (\fBMokNew\fR or \fBMokXNew\fR).
 .TP
 \fB--revoke-delete\fR
-Revoke the current delete request (MokDel)
+Revoke/cancel the current pending delete request (\fBMokDel\fR or \fBMokXDel\fR).
 .TP
 \fB-x, --export\fR
-Export the keys stored in MokListRT
+Export the certificates stored in the targeted database to files in DER format in the current directory.
+The default targets \fBMokListRT\fR. This can also target other databases if combined with options like
+\fB--mokx\fR, \fB--pk\fR, \fB--kek\fR, \fB--db\fR, or \fB--dbx\fR.
 .TP
-\fB-p, --password\fR
-Setup the password for MokManager (MokPW)
-.TP
-\fB-c, --clear-password\fR
-Clear the password for MokManager (MokPW)
-.TP
-\fB--disable-validation\fR
-Disable the validation process in shim
-.TP
-\fB--enable-validation\fR
-Enable the validation process in shim
-.TP
-\fB--sb-state\fR
-Show SecureBoot State
-.TP
-\fB--is-sb-enabled\fR
-Indicates if SecureBoot is enabled
-.TP
-\fB-t, --test-key\fR
-Test if the key is enrolled or not
+\fB-t, --test-key\fR \fIkeyfile\fR
+Test whether the specified DER-format key is already enrolled or blocked in the target databases,
+or already present in a pending request.
+Exits with status \fB0\fR if the key was found, and with status \fB1\fR if the key is not enrolled,
+so the result can be tested from a script.
 .TP
 \fB--reset\fR
-Reset MOK list
+Issue a request to completely reset the target database (\fBMokList\fR, or \fBMokListX\fR if \fB--mokx\fR is specified).
+This operation wipes all user-enrolled keys on the next reboot following user confirmation in \fBMokManager\fR.
+
+.SS Targeted Database & List Selection
 .TP
-\fB--generate-hash\fR
-Generate the password hash
-.TP
-\fB--hash-file\fR
-Use the password hash from a specific file
-.TP
-\fB-P, --root-pw\fR
-Use the root password hash from /etc/shadow
-.TP
-\fB--ignore-db\fR
-Tell shim to not use the keys in db to verify EFI images
-.TP
-\fB--use-db\fR
-Tell shim to use the keys in db to verify EFI images (default)
+\fB-m, --mok\fR
+Direct the command to target or manipulate the MOK list (\fBMokListRT\fR). This is the default target list.
 .TP
 \fB-X, --mokx\fR
-Manipulate the MOK blacklist (MOKX) instead of the MOK list
+Direct the command to target or manipulate the MOK blacklist (\fBMokListXRT\fR) instead of the MOK list.
+
+.SS Certificate Filtering & Formatting
 .TP
-\fB--import-hash\fR
-Create an enrolling request for the hash of a key in DER format. Note that
-this is not the password hash.
+\fB-a, --all\fR
+When listing enrolled keys with \fB--list-enrolled\fR, list keys across all available signature databases
+(\fBMokListRT\fR, \fBMokListXRT\fR, \fBPK\fR, \fBKEK\fR, \fBdb\fR, and \fBdbx\fR).
 .TP
-\fB--delete-hash\fR
-Create a deleting request for the hash of a key in DER format. Note that
-this is not the password hash.
+\fB--short\fR
+Display key listings in a concise, single-line format instead of the default verbose certificate formatting.
+
+.SS Password Options
 .TP
-\fB--set-verbosity\fR
-Set the SHIM_VERBOSE to make shim more or less verbose
+\fB-p, --password\fR
+Setup the password (\fBMokPW\fR) that \fBMokManager\fR will require to authorize the pending changes.
+If neither \fB--hash-file\fR nor \fB--root-pw\fR is provided, the tool prompts interactively for the password.
 .TP
-\fB--set-fallback-verbosity\fR
-Set the FALLBACK_VERBOSE to make fallback more or less verbose
+\fB-c, --clear-password\fR
+Clear the password for \fBMokManager\fR (\fBMokPW\fR).
 .TP
-\fB--set-fallback-noreboot\fR
-Set the FB_NO_REBOOT to prevent fallback from automatically rebooting the system
+\fB-g\fR[\fIpassword\fR], \fB--generate-hash\fR[\fB=\fR\fIpassword\fR]
+Generate and display a SHA-512 crypt password hash. If \fIpassword\fR is provided directly on the command line,
+it generates the hash for it. If \fIpassword\fR is omitted, the utility prompts interactively for the password.
+.TP
+\fB-f, --hash-file\fR \fIhashfile\fR
+Specify a file containing a pre-computed password hash. \fBmokutil\fR will use this hash instead of prompting.
+This option is mutually exclusive with \fB--root-pw\fR.
+.TP
+\fB-P, --root-pw\fR
+Instruct \fBmokutil\fR to use the root password hash from \fI/etc/shadow\fR.
+This option is mutually exclusive with \fB--hash-file\fR.
+
+.SS Platform Verification Databases
 .TP
 \fB--pk\fR
-List the keys in the public Platform Key (PK)
+List the public keys or certificates enrolled in the Platform Key (\fBPK\fR) database.
+The PK establishes the platform owner and controls access to the KEK database.
 .TP
 \fB--kek\fR
-List the keys in the Key Exchange Key Signature database (KEK)
+List the keys enrolled in the Key Exchange Key (\fBKEK\fR) signature database.
+Keys in KEK are used to write and authorize updates to the \fBdb\fR and \fBdbx\fR databases.
 .TP
 \fB--db\fR
-List the keys in the secure boot signature store (db)
+List the keys in the secure boot signature database (\fBdb\fR).
+The \fBdb\fR contains certificates, keys, or hashes trusted to run in the Secure Boot environment.
 .TP
 \fB--dbx\fR
-List the keys in the secure boot blacklist signature store (dbx)
-.TP
-\fB--list-sbat-revocations\fR
-List the entries in the Secure Boot Advanced Targeting store (SBAT)
-.TP
-\fB--set-sbat-policy (\fIlatest\fR | \fIautomatic\fR)\fR
-Set the SbatPolicy UEFI Variable to have shim apply either the latest
-or the automatic SBAT revocations.  If UEFI Secure Boot is disabled, then
-shim will automatically delete SBAT revocations
-.TP
-\fB--set-ssp-policy (\fIlatest\fR | \fIautomatic\fR | \fIdelete\fR)\fR
-Set the SspPolicy UEFI Variable to have shim apply either the latest
-or the automatic Windows SkuSiPolicy to manage bootmgr revocations. Since
-these are non-native revocations, shim will not automatically delete
-them. If this is needed, spp-policy can be set to delete when Secure
-Boot is disabled. The delete policy is non-persistent.
-.TP
-\fB--timeout\fR
-Set the timeout for MOK prompt
+List the keys in the secure boot forbidden signature database (\fBdbx\fR).
+The \fBdbx\fR blacklist contains forbidden or compromised signatures that are explicitly denied execution.
+
+.SS Verification and Bypass Controls
 .TP
 \fB--ca-check\fR
-Check if the CA of the given key is already enrolled or blocked in the key
-databases.
+Check whether the Certificate Authority (CA) of the specified key is already enrolled or blocked
+in the targeted databases.
 .TP
 \fB--ignore-keyring\fR
-Ignore the kernel builtin trusted keys keyring check when enrolling a key into MokList
+By default, \fBmokutil\fR checks if a key is already enrolled in the kernel's built-in trusted keys keyring.
+Use this option to bypass the kernel keyring check and force enrollment into the MOK database.
+.TP
+\fB--disable-validation\fR
+Form a request to turn off the signature validation in \fBshim\fR, so that \fBshim\fR loads EFI images
+without verifying their signatures. The request is stored in the \fBMokSB\fR variable and has to be
+confirmed by the physical operator in \fBMokManager\fR on the next reboot. \fBmokutil\fR prompts for
+the Secure Boot validation toggle password described in \fBNOTES\fR.
+.TP
+\fB--enable-validation\fR
+Form a request to turn the signature validation in \fBshim\fR back on. This uses the same \fBMokSB\fR
+variable, password prompt and \fBMokManager\fR confirmation as \fB--disable-validation\fR.
+.TP
+\fB--ignore-db\fR
+Tell \fBshim\fR not to use the keys in the system's firmware \fBdb\fR database to verify EFI images.
+.TP
+\fB--use-db\fR
+Tell \fBshim\fR to use the keys in the system's firmware \fBdb\fR database to verify EFI images. This is the default.
+
+.SS Secure Boot Advanced Targeting (SBAT)
+.TP
+\fB--list-sbat-revocations, --sbat\fR
+List the current revocations active in the Secure Boot Advanced Targeting (\fBSBAT\fR) store (\fBSbatLevelRT\fR).
+SBAT provides metadata-based generation numbers for bootloader components to quickly revoke vulnerable binaries.
+.TP
+\fB--set-sbat-policy\fR (\fBlatest\fR | \fBautomatic\fR)
+Set the \fBSbatPolicy\fR UEFI variable. This variable tells \fBshim\fR how to apply SBAT revocations:
+.RS
+.IP "\(bu" 2
+\fBlatest\fR: Enforce the latest SBAT revocations.
+.IP "\(bu" 2
+\fBautomatic\fR: Enforce the previous generation of SBAT revocations (automatic).
+.RE
+.IP
+If UEFI Secure Boot is disabled, \fBshim\fR automatically deletes the SBAT revocations.
+.TP
+\fB--set-ssp-policy\fR (\fBlatest\fR | \fBautomatic\fR | \fBdelete\fR)
+Set the \fBSSPPolicy\fR UEFI variable. This tells \fBshim\fR how to manage non-native Windows \fBSkuSiPolicy\fR
+revocations for managing bootmgr revocations.
+.RS
+.IP "\(bu" 2
+\fBlatest\fR: Enforce the latest Windows SkuSiPolicy.
+.IP "\(bu" 2
+\fBautomatic\fR: Enforce the previous Windows SkuSiPolicy (automatic).
+.IP "\(bu" 2
+\fBdelete\fR: Delete non-native revocations. This is non-persistent and allowed only when Secure Boot is disabled.
+.RE
+
+.SS Shim and Fallback Environment Controls
+.TP
+\fB--sb-state\fR
+Display detailed Secure Boot status information on the system, showing whether Secure Boot is enabled or disabled.
+.TP
+\fB--is-sb-enabled\fR
+Check whether Secure Boot is currently enabled. This prints the same status information as
+\fB--sb-state\fR; the difference is the exit status, which is \fB0\fR when Secure Boot is enabled and
+\fB1\fR when it is disabled or the platform is in Setup Mode, so the state can be tested from a script.
+.TP
+\fB--set-verbosity\fR (\fBtrue\fR | \fBfalse\fR)
+Configure the \fBSHIM_VERBOSE\fR variable to make the \fBshim\fR bootloader verbose or quiet.
+.TP
+\fB--set-fallback-verbosity\fR (\fBtrue\fR | \fBfalse\fR)
+Configure the \fBFALLBACK_VERBOSE\fR variable to make the \fBfallback\fR EFI application verbose or quiet.
+.TP
+\fB--set-fallback-noreboot\fR (\fBtrue\fR | \fBfalse\fR)
+Configure the \fBFB_NO_REBOOT\fR variable. Setting this to true prevents the \fBfallback\fR application from
+automatically rebooting the system.
+.TP
+\fB--timeout\fR \fIseconds\fR
+Set the countdown timeout for the MOK prompt inside \fBMokManager\fR on reboot.
+Accepts values between \fB0\fR and \fB0x7fff\fR (in seconds), or \fB-1\fR to wait indefinitely.
+Out-of-range values are clamped rather than rejected: a value greater than \fB0x7fff\fR is stored as
+\fB0x7fff\fR, and any negative value is stored as \fB-1\fR.
+Setting the timeout to \fB10\fR deletes \fBMokTimeout\fR instead of storing it, since 10 seconds is
+already the built-in default of \fBshim\fR.
 .TP
 \fB--trust-mok\fR
-Trust MOK keys within the kernel keyring
+Tell the kernel to trust keys within the MOK list in the kernel keyring.
 .TP
 \fB--untrust-mok\fR
-Do not trust MOK keys within the kernel keyring
+Tell the kernel not to trust MOK list keys in the kernel keyring.
+
+.SS Information & Help
 .TP
+\fB-h, --help\fR
+Display a summary of usage, primary options, and supplementary options, and exit.
+.TP
+\fB-v, --version\fR
+Display the program version and exit.
+
+.SH EXIT STATUS
+.TP
+\fB0\fR
+Success.
+.TP
+\fB1\fR
+EFI variables are not supported on the system.
+This status is also returned by \fB--is-sb-enabled\fR when Secure Boot is disabled or the platform is
+in Setup Mode, and by \fB--test-key\fR when the key is \fBnot\fR enrolled in the target database.
+.TP
+\fB255\fR
+A command failed. For example, the system does not support Secure Boot, the given key file could not
+be read, or an EFI variable could not be read or written.
+
+.SH NOTES
+\fBmokutil\fR uses two distinct passwords:
+.TP
+\fBMOK password\fR
+Used to authorize key enrollment and deletion requests (\fB--import\fR, \fB--delete\fR, \fB--reset\fR, \fB--password\fR).
+The password is stored as a crypt(3) hash (\fBMokPW\fR).
+Allowed length: \fB1\fR to \fB256\fR characters.
+.TP
+\fBSecure Boot validation toggle password\fR
+Used to authorize \fB--disable-validation\fR and \fB--enable-validation\fR requests.
+The password is stored in plaintext in NVRAM. MokManager will pick a few characters as the security prompt.
+Allowed length: \fB8\fR to \fB16\fR characters.
+
+Pending enrollment or deletion requests can only be handled on the next system reboot before any operating system
+is booted. The operator must have physical access to the system to complete the actions via \fBMokManager\fR.

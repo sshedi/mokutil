@@ -117,11 +117,12 @@ print_help ()
 	printf ("\n");
 	printf ("Options:\n");
 	printf ("  --help, -h\t\t\t\tShow help\n");
+	printf ("  --version, -v\t\t\t\tShow the version\n");
 	printf ("  --list-enrolled, -l\t\t\tList the enrolled keys\n");
 	printf ("  --list-new, -N\t\t\tList the keys to be enrolled\n");
 	printf ("  --list-delete, -D\t\t\tList the keys to be deleted\n");
 	printf ("  --import, -i <der file...>\t\tImport keys\n");
-	printf ("  --delete, -D <der file...>\t\tDelete specific keys\n");
+	printf ("  --delete, -d <der file...>\t\tDelete specific keys\n");
 	printf ("  --revoke-import\t\t\tRevoke the import request\n");
 	printf ("  --revoke-delete\t\t\tRevoke the delete request\n");
 	printf ("  --export, -x\t\t\t\tExport keys to files\n");
@@ -154,9 +155,9 @@ print_help ()
 	printf ("  --db\t\t\t\t\tList the keys in db\n");
 	printf ("  --dbx\t\t\t\t\tList the keys in dbx\n");
 	printf ("  --timeout <-1,0..0x7fff>\t\tSet the timeout for MOK prompt\n");
-	printf ("  --list-sbat-revocations\t\tList the entries in SBAT\n");
+	printf ("  --list-sbat-revocations, --sbat\tList the entries in SBAT\n");
 	printf ("\n");
-	printf ("Supplimentary Options:\n");
+	printf ("Supplementary Options:\n");
 	printf ("  --hash-file, -f <hash file>\t\tUse the specific password hash\n");
 	printf ("  --root-pw, -P\t\t\t\tUse the root password\n");
 	printf ("  --mok, -m\t\t\t\tManipulate the MOK list\n");
